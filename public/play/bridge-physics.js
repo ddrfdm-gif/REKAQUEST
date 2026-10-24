@@ -1,7 +1,0 @@
-export const BRIDGE_SLOTS=[{id:'cup-cause',situation:'Bekas pensel tumbang',role:'PUNCA',answer:'narrow'},{id:'cup-effect',situation:'Bekas pensel tumbang',role:'KESAN',answer:'spill'},{id:'broken-cause',situation:'Bekas alat tulis retak',role:'PUNCA',answer:'fragile'},{id:'broken-effect',situation:'Bekas alat tulis retak',role:'KESAN',answer:'escape'}];
-export const BRIDGE_CARDS=[{id:'narrow',text:'Tapak terlalu sempit',icon:'▱'},{id:'spill',text:'Pensel jatuh dan berselerak',icon:'✎'},{id:'fragile',text:'Bahan dinding mudah retak',icon:'ϟ'},{id:'escape',text:'Pensel terkeluar melalui retakan',icon:'↗'}];
-export const BRIDGE_PLATFORMS=[{x:-74,z:60,w:8,d:8,top:3},{x:-64.5,z:60,w:6,d:6,top:3},{x:-55,z:60,w:6,d:6,top:3},{x:-45.5,z:60,w:6,d:6,top:3},{x:-36,z:60,w:6,d:6,top:3},{x:-26.5,z:60,w:8,d:8,top:3}];
-export function correctBridgeCard(index,id){return BRIDGE_SLOTS[index]?.answer===id}
-export function platformAt(x,z,platforms,margin=0){return platforms.findIndex(p=>Math.abs(x-p.x)<=p.w/2+margin&&Math.abs(z-p.z)<=p.d/2+margin)}
-export function landingSurface(x,z,previousY,newY,velocity,platforms){if(velocity>0)return null;let best=null;for(const p of platforms){if(Math.abs(x-p.x)<=p.w/2+.25&&Math.abs(z-p.z)<=p.d/2+.25&&previousY>=p.top-.08&&newY<=p.top){if(!best||p.top>best.top)best=p}}return best}
-export function canBuildNext(stage,built,reached,x,z){return stage>=0&&stage<4&&stage===built&&reached>=stage&&Math.abs(x-BRIDGE_PLATFORMS[stage].x)<4.6&&Math.abs(z-60)<4.6}
