@@ -1,142 +1,69 @@
-# REKAQUEST — Kod Kendiri · Tema Merah Jambu, Putih & Biru Muda
+# REKAQUEST 2.1.1 — Pengembaraan 48 Cabaran
 
-Permainan pengembaraan RBT dengan log masuk passcode, dashboard admin dan dashboard guru. Tiada GPT Site, akaun ChatGPT, OAuth, analitik, CDN atau API AI diperlukan. Semua aset permainan dibekalkan secara setempat. Aplikasi berkomunikasi dengan pelayan REKAQUEST yang kamu jalankan sendiri.
+Aplikasi Node.js 24 tanpa pakej luar. Enam zon bersambung dengan 48 stesen pembelajaran, platform lompat, pintu kemajuan dan checkpoint. Warna merah jambu, putih dan biru muda.
 
-## Cara paling cepat mencuba pada komputer
+## Jalankan
 
-1. Pasang **Node.js 24**.
-2. Ekstrak ZIP ini.
-3. Buka Terminal / Command Prompt dalam folder yang mengandungi `package.json`.
-4. Jalankan:
+1. Pasang Node.js 24.
+2. Buka terminal dalam folder yang mengandungi package.json.
+3. Jalankan `npm start`.
+4. Buka http://localhost:3000.
 
-```sh
-npm start
-```
+Jangan buka index.html terus: login, markah dan simpanan memerlukan pelayan Node.
 
-5. Buka **http://localhost:3000**.
-6. Pilih **Admin**, masukkan **`admie`**.
-7. Tambah nama guru dan passcode guru. Catat passcode tersebut.
-8. Keluar, pilih **Guru**, masukkan passcode guru yang didaftarkan.
-9. Tambah nama murid, kelas dan passcode murid.
-10. Keluar, pilih **Murid**, masukkan passcode murid. Permainan dibuka terus.
+## Akaun
 
-Tiada pakej tambahan diperlukan. SQLite dan pelayan HTTP menggunakan modul terbina dalam Node.js. Jangan buka `public/index.html` dengan klik dua kali: log masuk dan rekod memerlukan pelayan berjalan.
+- Admin: pilih Admin, passcode awal `admie`.
+- Admin menambah guru dan passcode guru (minimum 6 aksara).
+- Guru menambah murid, kelas dan passcode murid (minimum 4 aksara).
+- Murid log masuk menggunakan passcode sendiri dan masuk permainan.
+- Guru hanya boleh melihat dan mengurus muridnya sendiri. Admin mengurus guru serta boleh melihat laporan keseluruhan. Admin tidak menambah murid.
 
-## Skrin dan aliran
+## Cara bermain
 
-Skrin hadapan hanya memaparkan **“Selamat Datang ke REKAQUEST”** dan tiga pilihan: **Admin**, **Guru**, **Murid**.
+- WASD / anak panah: bergerak; Space: lompat; E: buka cabaran berdekatan.
+- Butang arah dan Lompat disediakan untuk skrin sentuh.
+- Periksa bukti dan selesaikan cabaran di stesen bercahaya untuk membuka pintu.
+- Laluan antara stesen mengandungi platform dan jurang. Lompat bantu memindahkan watak ke platform berikutnya yang telah dibuka.
+- Checkpoint kembali ke stesen yang telah benar-benar dicapai. Kedudukan checkpoint disimpan pada peranti; rekod cabaran disimpan pada pelayan. Pada peranti baharu, murid boleh kembali ke zon yang sudah dicapai melalui perjalanan semula.
+- Peta membenarkan kembali ke zon yang sudah dibuka.
+- Profil menunjukkan mata, kemajuan, lencana dan rekod percubaan. Avatar lelaki/perempuan serta warna dan aksesori boleh diubah.
+- Jatuh menggunakan satu nyawa. Jawapan salah tidak menolak nyawa. 20 mata boleh ditebus untuk satu nyawa; maksimum lima nyawa. Apabila kosong, satu nyawa percuma boleh dipulihkan selepas 60 saat.
 
-- **Admin:** terus membuka Pengurusan guru; tambah guru, tetapkan passcode guru dan aktif/nyahaktif guru. Admin boleh membaca laporan keseluruhan tetapi tidak mendaftarkan atau mengubah akaun murid.
-- **Guru:** satu-satunya peranan yang boleh mendaftarkan dan mengurus murid di bawah seliaannya; tambah murid dan passcode mereka, tapis mengikut nama/kelas, pantau markah serta kemajuan enam misi, buka laporan peribadi, eksport CSV.
-- **Murid:** masuk terus ke permainan dengan nama akaun yang diberikan guru; pilih avatar lelaki/perempuan dan warna; sambung kemajuan yang disimpan.
-- Guru B tidak boleh mengakses rekod murid Guru C, termasuk melalui permintaan API terus.
-- Passcode tidak dipaparkan semula selepas pendaftaran; gunakan Tetap semula jika terlupa. Passcode guru sekurang-kurangnya 6 aksara; murid sekurang-kurangnya 4. Passcode mesti unik dalam peranan yang sama.
-- Passcode admin pertama ialah `admie`, seperti diminta. `ADMIN_PASSCODE` boleh menentukan nilai berbeza **sebelum** pangkalan data pertama dicipta. Menukar pemboleh ubah itu kemudian tidak menukar akaun sedia ada.
+## Kandungan dan pemarkahan
 
-## Apa yang guru boleh lihat
+Semua 48 nama cabaran daripada PDF asal disenaraikan dalam PETA-CABARAN.md. Lapan cabaran bagi setiap zon, 95 MP bagi setiap zon, 570 MP keseluruhan. Markah terbaik diberikan sekali; percubaan dan petunjuk direkodkan berasingan. Mata yang dibelanjakan tidak mengurangkan markah pencapaian.
 
-- MP permainan, maksimum **300 MP**, dan kemajuan cabaran setiap misi.
-- Soalan atau ujian yang murid cuba; jawapan murid; jawapan/kriteria yang tepat; masa dan urutan percubaan.
-- Kesilapan yang sudah dibaiki dan item yang masih belum tepat.
-- Ketepatan percubaan pertama bagi setiap item yang telah dicuba.
-- Konsep RBT yang memerlukan bimbingan, dengan cadangan tindakan.
-- Keputusan **Semakan RBT**: dua situasi baharu bagi setiap misi yang selesai.
-- Percubaan latihan obby bebas diasingkan daripada rekod rasmi. Bantuan melompat tidak mengurangkan MP RBT.
+Jenis aktiviti: pemeriksaan maklumat, pilihan tunggal/berbilang, padanan, susunan langkah, lakaran SVG, pengiraan, pelan bajet dan ujian produk berasaskan peraturan. Pintu kemajuan dibuka oleh jawapan yang disemak pelayan. Guru melihat jawapan salah, jawapan/kriteria betul, percubaan, petunjuk dan kemajuan setiap cabaran.
 
-Jawapan bermakna direkodkan bagi lima cabaran Misi 1, pemilihan idea, pemilihan prototaip, pengiraan kos, ujian produk, pembentangan dan 12 item semakan situasi baharu. Tindakan penerokaan/pembinaan yang bukan jawapan direkodkan sebagai kemajuan cabaran, bukan “jawapan salah”. Petunjuk Misi 1 juga kekal dalam rekod permainan.
+Halangan fizikal merangkumi platform bergerak, lif, platform rapuh, palang berputar, lantai tenaga berkala, penghantar dan laluan sempit. Setiap zon menggunakan gabungan berbeza dan hiasan bertema. Cabaran bercabang membuka laluan pemulihan di sisi selepas kesilapan. Permainan ini ialah aplikasi pelayar sendiri, bukan permainan di platform Roblox. Lakaran ialah contoh yang diperiksa/dipilih, bukan editor lukisan bebas. Ujian produk berasaskan peraturan dan paparan hasil, bukan enjin fizik produk sebenar. Petunjuk tiga tahap disediakan dalam kod, bukan API AI langsung. Urutan rasmi buku teks belum disahkan. Selepas cabaran ke-48, murid masih perlu sampai ke gerbang penamat untuk membuka sijil yang boleh dicetak/disimpan sebagai PDF. Penguasaan perlu disahkan guru melalui penerangan dan hasil kerja, bukan mata sahaja.
 
-MP aktiviti dikira pada pelayan berdasarkan cabaran yang dilaporkan selesai; aktiviti permainan masih bergantung pada laporan klien. Ini instrumen formatif, bukan peperiksaan dengan perlindungan antimanipulasi. Ketepatan item dan kriteria ujian dinilai semula pada pelayan. Tahap PBD tidak ditentukan secara automatik.
+## Upload GitHub dan deploy Render
 
-## Profil murid, mata, lencana dan nyawa
+Ekstrak ZIP, buka folder REKAQUEST dan upload SEMUA ISI folder ke akar repositori (package.json, server.mjs, lib/, public/, test/ dan fail konfigurasi). Jangan upload ZIP atau folder REKAQUEST yang membungkus semuanya. Fail senama menggantikan versi lama; tidak perlu padam repositori.
 
-Tema utama antara muka ialah **merah jambu, putih dan biru muda**, termasuk skrin tiga peranan, dashboard dan panel profil permainan.
+Render Web Service:
+- Runtime: Node
+- Build: `npm install --omit=dev`
+- Start: `npm start`
+- NODE_VERSION: `24`
+- COOKIE_SECURE: `true`
+- ADMIN_PASSCODE: `admie` (digunakan hanya semasa pangkalan data pertama dicipta)
+- Root directory: kosong
+- Health check: `/health`
 
-Dalam permainan, tekan **Profil murid** atau kotak **♥ nyawa / ✦ mata**. Profil menunjukkan avatar, nama, markah RBT, baki mata boleh ditebus, nyawa semasa, kemajuan enam misi dan enam lencana. Lencana diperoleh apabila semua cabaran misi berkenaan selesai.
+Selepas commit GitHub, buka Render → Manual Deploy → Deploy latest commit. Website tidak berubah sehingga deploy berjaya.
 
-| Peraturan awal | Nilai |
-|---|---|
-| Nyawa permulaan | 3 |
-| Nyawa maksimum | 5 |
-| Kos tebus 1 nyawa | 20 mata |
-| Jatuh ke jurang obby | Tolak 1 nyawa |
-| Jawapan salah tanpa jatuh | Tidak menolak nyawa |
-| Checkpoint secara manual / Lompat bantu | Tidak menolak nyawa |
-| Nyawa habis tanpa mata mencukupi | Pulih 1 nyawa percuma selepas 60 saat |
+Render Free boleh digunakan untuk demonstrasi. SQLite pada cakera sementara boleh hilang selepas restart/redeploy. Rekod yang telah disimpan kekal selagi pangkalan data kekal. Jika sambungan terputus, jawapan dan tindakan nyawa menunggu simpanan pada peranti serta boleh dicuba semula tanpa pengiraan berganda. Untuk penyimpanan kekal, gunakan cakera persisten dan tetapkan DATA_DIR kepada direktori cakera. render.yaml ialah pilihan blueprint berbayar dengan cakera; jangan guna blueprint itu jika mahu kekal Free.
 
-**Markah RBT dan baki mata adalah berasingan.** Contoh: murid memperoleh 50 MP daripada Misi 1. Sebanyak 50 mata ganjaran dikreditkan sekali. Selepas menebus satu nyawa, baki menjadi 30 mata, tetapi markah dalam laporan guru kekal 50/300 MP. Mengulang cabaran tidak mengkreditkan mata tambahan. Mata tidak boleh dibeli dengan wang.
+## Simpanan dan privasi
 
-Penebusan, had nyawa dan baki disemak pada pelayan. ID tindakan menghalang penghantaran semula permintaan yang sama daripada menolak mata atau nyawa dua kali. Menghantar `balance` atau `lives` dalam simpanan permainan tidak mengubah dompet pelayan. Semakan ini melindungi transaksi ganjaran; kredit MP masih berdasarkan aktiviti permainan yang dilaporkan klien seperti diterangkan di atas.
+Data disimpan dalam data/rekaquest.sqlite dan data/auth.key. Sandarkan seluruh direktori data bersama-sama ketika pelayan berhenti. Jangan upload data/, .env sebenar, fail SQLite atau auth.key ke GitHub. `.env.example` hanyalah contoh tanpa data sebenar. Passcode disimpan menggunakan scrypt, sesi menggunakan cookie HttpOnly. Pelayan menyekat akses rentas guru dan menyemak markah cabaran pengembaraan.
 
-Nyawa digunakan untuk cabaran obby, termasuk latihan bebas. Apabila nyawa habis, pergerakan dan bantuan lompat dalam obby berhenti sehingga nyawa ditambah. Murid boleh keluar ke kawasan pembelajaran lain. Blok yang betul, checkpoint dan markah tidak dipadamkan.
+Versi lama dikekalkan di public/play/legacy.html untuk rujukan; laluan utama /play/ membuka versi 2.1. Kemajuan lama tidak ditukar menjadi penyelesaian 48 cabaran baharu. Akaun sedia ada kekal jika pangkalan data kekal.
 
-Pemulihan percuma hanya tersedia apabila nyawa ialah sifar dan tempoh menunggu telah tamat. Ia memberikan satu nyawa, tanpa menolak mata; ia tidak mengisi lima nyawa sekali gus. Tujuannya mengelakkan murid tersekat apabila belum mempunyai mata.
+## Semakan
 
-Peraturan pelayan berada dalam `lib/rewards.mjs` (`REWARDS`). Modul antara muka profil ialah `public/play/student-profile.js`; gayanya dalam `public/play/profile-theme.css`. Pangkalan data lama daripada versi kod kendiri sebelumnya boleh terus digunakan: jadual dompet dan transaksi ditambah secara automatik pada startup. Simpan seluruh folder data asal; murid sedia ada menerima kredit berdasarkan pencapaian yang disimpan, tanpa pendua. Guru boleh melihat baki mata, mata dibelanjakan dan nyawa dalam laporan murid.
+`npm test` menjalankan sepuluh ujian: peranan/akses, simpanan jawapan, ganjaran/nyawa, fizik obby lama, paparan portal dan semua 48 cabaran baharu. Ujian API melengkapkan semua cabaran dan menyemak 570 MP, penguncian, percubaan berulang, petunjuk dan pengasingan guru. Semakan pelayar tempatan menggunakan pelayan sebenar melengkapkan semua 48 cabaran, semua 144 langkah laluan dengan lompat bantu, gerbang penamat dan sijil. Penebusan nyawa, simpanan selepas muat semula serta laporan guru 48 cabaran turut diperiksa. Ujian fizik juga mengesahkan semua 144 jurang mempunyai laluan lompatan biasa pada fasa halangan yang sesuai. Ini tidak menggantikan pemerhatian penggunaan oleh murid pada peranti sebenar.
 
-## GitHub dan Render
-
-1. Buat repositori GitHub baharu.
-2. Muat naik **isi folder** ini supaya `package.json`, `server.mjs`, `public/` dan `lib/` berada di akar repositori. Jangan muat naik folder `data/` atau fail `.env`.
-3. Dalam Render, pilih **New → Web Service**, sambungkan repositori.
-4. Tetapkan:
-
-| Tetapan | Nilai |
-|---|---|
-| Runtime | Node |
-| Build Command | `npm install --omit=dev` |
-| Start Command | `npm start` |
-| Health Check | `/health` |
-| `NODE_VERSION` | `24` |
-| `COOKIE_SECURE` | `true` |
-| `DATA_DIR` | `/var/data/rekaquest` |
-| `ADMIN_PASSCODE` | `admie` atau pilihan kamu sebelum kali pertama dijalankan |
-
-5. Tambah **persistent disk**, mount path **`/var/data`**, supaya akaun dan markah kekal selepas restart/redeploy. Render menyediakan disk ini pada servis berbayar. Tanpa disk kekal, data SQLite boleh hilang apabila servis dimulakan semula atau dideploy.
-6. Deploy, buka URL Render dan masuk sebagai Admin.
-
-`render.yaml` juga disertakan untuk aliran Blueprint. Fail itu menggunakan pelan `starter` dengan disk 1 GB; semak kos dalam akaun Render sebelum menggunakannya. Tiada deployment dibuat oleh pakej ini.
-
-Rujukan rasmi: https://render.com/docs/web-services · https://render.com/docs/disks · https://render.com/docs/node-version
-
-**Ini Web Service, bukan Static Site / GitHub Pages**, kerana log masuk dan pangkalan data perlu dijalankan pada pelayan. Jika mahu mengelakkan disk Render, jalankan pada komputer/pelayan sendiri yang mempunyai storan kekal; versi ini menggunakan SQLite, bukan pangkalan data luaran.
-
-## Fail utama
-
-```text
-server.mjs                 Pelayan, sesi, kawalan akses dan API
-lib/catalog.mjs            Pemarkahan jawapan pada pelayan
-lib/rbt.mjs                Struktur misi, normalisasi state dan pengiraan MP
-public/index.html          Skrin tiga peranan
-public/portal.js           Borang log masuk dan dashboard
-public/portal.css          Gaya dashboard
-public/portal-extra.css    Gaya skrin hadapan dan laporan
-public/play/               Permainan 3D dan avatar
-public/play/cloud-profile.js  Simpan kemajuan dan barisan jawapan
-public/play/learning-check.js Semakan situasi baharu
-public/play/student-profile.js Profil, mata, nyawa dan lencana
-public/play/profile-theme.css Tema merah jambu, putih dan biru muda
-lib/rewards.mjs             Peraturan ganjaran dan transaksi nyawa
-render.yaml                Pilihan konfigurasi Render
-.env.example               Contoh pemboleh ubah persekitaran
-```
-
-Data sebenar disimpan dalam `DATA_DIR`: `rekaquest.sqlite`, fail jurnal SQLite, dan `auth.key`. `auth.key` perlu kekal bersama pangkalan data untuk passcode terus berfungsi. Passcode disimpan sebagai scrypt hash dengan salt; carian log masuk menggunakan HMAC dengan kunci pelayan; sesi menggunakan cookie HttpOnly. Akaun dan kebenaran disemak pada setiap permintaan. Sesi bertahan 12 jam; log keluar atau tetap semula passcode membatalkan sesi berkenaan.
-
-Untuk sandaran, hentikan aplikasi seketika dan salin **seluruh** `DATA_DIR`; pulihkan folder itu pada storan kekal. Jangan masukkan sandaran murid ke repositori awam. Pakej ZIP ini tidak mengandungi data pengguna atau rekod daripada site lama.
-
-Status simpanan permainan dipaparkan di atas skrin. Jika rangkaian terputus, kemajuan dan jawapan yang belum dihantar disimpan sementara pada peranti dan dihantar semula apabila sambungan pulih. Log keluar permainan menunggu rekod dihantar. Permainan memerlukan log masuk dan pelayan; ini bukan aplikasi luar talian sepenuhnya.
-
-## Ujian
-
-```sh
-npm test
-```
-
-Ujian integrasi menggunakan pelayan sebenar dan SQLite sementara: log masuk admin/guru/murid, dua guru dengan murid berasingan, akses silang ditolak, pengiraan MP, rekod kesilapan/pembetulan, penghantaran semula tanpa pendua, semakan terkunci sehingga misi selesai, passcode baharu, logout, nyahaktif akaun dan rekod kekal selepas restart. Ujian ganjaran meliputi had nyawa, baki mata, markah tidak berkurang, permintaan berulang, pemulihan 60 saat dan nyawa obby sebenar.
-
-## Lesen aset
-
-Three.js r170 disertakan di `public/play/three.module.js` di bawah lesen MIT. Lihat `THIRD_PARTY_NOTICES.txt`.
-
-### Pembetulan versi 1.1.1
-Admin terus masuk ke Pengurusan guru. Butang utama admin sentiasa Tambah guru pada semua tab; butang guru ialah Tambah murid. Pendaftaran/ubah akaun murid oleh admin disekat pada API juga. Akses admin kepada laporan murid ialah baca sahaja.
+Three.js disertakan secara setempat di bawah lesen MIT; lihat THIRD_PARTY_NOTICES.txt. Audio dijana oleh Web Audio; suara bergantung pada sokongan pelayar.
