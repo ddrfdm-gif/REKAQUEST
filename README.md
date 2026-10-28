@@ -1,12 +1,12 @@
-# REKAQUEST 2.1.1 — Pengembaraan 48 Cabaran
+# REKAQUEST 2.2.0 — Pengembaraan 48 Cabaran
 
-Aplikasi Node.js 24 tanpa pakej luar. Enam zon bersambung dengan 48 stesen pembelajaran, platform lompat, pintu kemajuan dan checkpoint. Warna merah jambu, putih dan biru muda.
+Aplikasi Node.js 24 dengan node-postgres (pg) untuk storan PostgreSQL. Enam zon bersambung dengan 48 stesen pembelajaran, platform lompat, pintu kemajuan dan checkpoint. Warna merah jambu, putih dan biru muda.
 
 ## Jalankan
 
 1. Pasang Node.js 24.
 2. Buka terminal dalam folder yang mengandungi package.json.
-3. Jalankan `npm start`.
+3. Jalankan `npm ci`, kemudian `npm start`.
 4. Buka http://localhost:3000.
 
 Jangan buka index.html terus: login, markah dan simpanan memerlukan pelayan Node.
@@ -38,32 +38,20 @@ Jenis aktiviti: pemeriksaan maklumat, pilihan tunggal/berbilang, padanan, susuna
 
 Halangan fizikal merangkumi platform bergerak, lif, platform rapuh, palang berputar, lantai tenaga berkala, penghantar dan laluan sempit. Setiap zon menggunakan gabungan berbeza dan hiasan bertema. Cabaran bercabang membuka laluan pemulihan di sisi selepas kesilapan. Permainan ini ialah aplikasi pelayar sendiri, bukan permainan di platform Roblox. Lakaran ialah contoh yang diperiksa/dipilih, bukan editor lukisan bebas. Ujian produk berasaskan peraturan dan paparan hasil, bukan enjin fizik produk sebenar. Petunjuk tiga tahap disediakan dalam kod, bukan API AI langsung. Urutan rasmi buku teks belum disahkan. Selepas cabaran ke-48, murid masih perlu sampai ke gerbang penamat untuk membuka sijil yang boleh dicetak/disimpan sebagai PDF. Penguasaan perlu disahkan guru melalui penerangan dan hasil kerja, bukan mata sahaja.
 
-## Upload GitHub dan deploy Render
+## Storan kekal pada Render Free — WAJIB baca
 
-Ekstrak ZIP, buka folder REKAQUEST dan upload SEMUA ISI folder ke akar repositori (package.json, server.mjs, lib/, public/, test/ dan fail konfigurasi). Jangan upload ZIP atau folder REKAQUEST yang membungkus semuanya. Fail senama menggantikan versi lama; tidak perlu padam repositori.
+Versi 2.2.0 menyokong PostgreSQL luaran. Ikuti **MULA-DI-SINI-POSTGRESQL.md** untuk mencipta pangkalan data Neon Free, mengisi DATABASE_URL di Render dan upload pakej ini sekali.
 
-Render Web Service:
-- Runtime: Node
-- Build: `npm install --omit=dev`
-- Start: `npm start`
-- NODE_VERSION: `24`
-- COOKIE_SECURE: `true`
-- ADMIN_PASSCODE: `admie` (digunakan hanya semasa pangkalan data pertama dicipta)
-- Root directory: kosong
-- Health check: `/health`
+Dalam Render, DATABASE_URL diwajibkan. Akaun, sesi, passcode yang dihash, markah, jawapan, nyawa dan kunci pengesahan disimpan dalam PostgreSQL. Aplikasi tidak lagi menggunakan fail sementara Render untuk data ini. Tiada cakera berbayar diperlukan.
 
-Selepas commit GitHub, buka Render → Manual Deploy → Deploy latest commit. Website tidak berubah sehingga deploy berjaya.
+Untuk ujian pada komputer sendiri, npm ci diikuti npm start boleh menggunakan SQLite jika DATABASE_URL tidak diisi. Node.js 24 diperlukan. Jangan buka HTML secara terus.
 
-Render Free boleh digunakan untuk demonstrasi. SQLite pada cakera sementara boleh hilang selepas restart/redeploy. Rekod yang telah disimpan kekal selagi pangkalan data kekal. Jika sambungan terputus, jawapan dan tindakan nyawa menunggu simpanan pada peranti serta boleh dicuba semula tanpa pengiraan berganda. Untuk penyimpanan kekal, gunakan cakera persisten dan tetapkan DATA_DIR kepada direktori cakera. render.yaml ialah pilihan blueprint berbayar dengan cakera; jangan guna blueprint itu jika mahu kekal Free.
-
-## Simpanan dan privasi
-
-Data disimpan dalam data/rekaquest.sqlite dan data/auth.key. Sandarkan seluruh direktori data bersama-sama ketika pelayan berhenti. Jangan upload data/, .env sebenar, fail SQLite atau auth.key ke GitHub. `.env.example` hanyalah contoh tanpa data sebenar. Passcode disimpan menggunakan scrypt, sesi menggunakan cookie HttpOnly. Pelayan menyekat akses rentas guru dan menyemak markah cabaran pengembaraan.
-
-Versi lama dikekalkan di public/play/legacy.html untuk rujukan; laluan utama /play/ membuka versi 2.1. Kemajuan lama tidak ditukar menjadi penyelesaian 48 cabaran baharu. Akaun sedia ada kekal jika pangkalan data kekal.
+Akaun lama yang telah hilang tidak boleh dipulihkan oleh sambungan baharu. Data lama yang masih wujud memerlukan migrasi berasingan; jangan upload SQLite atau auth.key ke GitHub.
 
 ## Semakan
 
-`npm test` menjalankan sepuluh ujian: peranan/akses, simpanan jawapan, ganjaran/nyawa, fizik obby lama, paparan portal dan semua 48 cabaran baharu. Ujian API melengkapkan semua cabaran dan menyemak 570 MP, penguncian, percubaan berulang, petunjuk dan pengasingan guru. Semakan pelayar tempatan menggunakan pelayan sebenar melengkapkan semua 48 cabaran, semua 144 langkah laluan dengan lompat bantu, gerbang penamat dan sijil. Penebusan nyawa, simpanan selepas muat semula serta laporan guru 48 cabaran turut diperiksa. Ujian fizik juga mengesahkan semua 144 jurang mempunyai laluan lompatan biasa pada fasa halangan yang sesuai. Ini tidak menggantikan pemerhatian penggunaan oleh murid pada peranti sebenar.
+`npm test` menjalankan ujian tempatan: peranan/akses, simpanan jawapan, ganjaran/nyawa, fizik obby lama, paparan portal dan semua 48 cabaran baharu. Ujian API melengkapkan semua cabaran dan menyemak 570 MP, penguncian, percubaan berulang, petunjuk dan pengasingan guru. Semakan pelayar tempatan menggunakan pelayan sebenar melengkapkan semua 48 cabaran, semua 144 langkah laluan dengan lompat bantu, gerbang penamat dan sijil. Penebusan nyawa, simpanan selepas muat semula serta laporan guru 48 cabaran turut diperiksa. Ujian fizik juga mengesahkan semua 144 jurang mempunyai laluan lompatan biasa pada fasa halangan yang sesuai. Ini tidak menggantikan pemerhatian penggunaan oleh murid pada peranti sebenar.
 
 Three.js disertakan secara setempat di bawah lesen MIT; lihat THIRD_PARTY_NOTICES.txt. Audio dijana oleh Web Audio; suara bergantung pada sokongan pelayar.
+
+Ujian PostgreSQL berasingan dijalankan dengan `RQ_TEST_DATABASE_URL` pada pangkalan data ujian kosong. Ia mencipta akaun ujian; jangan gunakan pangkalan data kelas sebenar. Tanpa pemboleh ubah itu, ujian PostgreSQL dilangkau.

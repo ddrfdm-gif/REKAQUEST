@@ -1,6 +1,6 @@
 {
   "name": "rekaquest",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,5 +10,8 @@
     "start": "node server.mjs",
     "dev": "node --watch server.mjs",
     "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "pg": "8.23.1"
   }
 }
